@@ -1,2 +1,24 @@
 # Edgelogger
 This project detects the rising and falling edges of a digital signal using an RC differentiator circuit and an ESP32 microcontroller. The RC circuit converts signal transitions into spikes, and the ESP32 captures them with interrupts, logging the exact time of each edge.
+const int edgePin = 4;  // GPIO you connected the junction to
+volatile unsigned long lastEdge = 0;
+
+void IRAM_ATTR edgeDetected() {
+  unsigned long now = micros();   // high-resolution timestamp
+  if (now - lastEdge > 500) {     // debounce: ignore edges < 500 µs apart
+    Serial.println("Edge detected!");
+    Serial.print("Time (us): ");
+    Serial.println(now);
+    lastEdge = now;
+  }
+}
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(edgePin, INPUT);
+  attachInterrupt(digitalPinToInterrupt(edgePin), edgeDetected, CHANGE);
+}
+
+void loop() {
+  // empty loop - ISR does the work
+}
