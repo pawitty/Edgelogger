@@ -18,3 +18,5 @@ Usage:
 2. Upload the sketch
 3. Open Serial Monitor at 115200 baud
 4. Observe timestamps for each edge
+
+![WhatsApp Image 2025-09-06 at 15 50 53_29fd8622](https://github.com/user-attachments/assets/5d9b130b-d2f8-40dd-8bab-397ab8d47461)
